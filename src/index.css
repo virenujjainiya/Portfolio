@@ -2,45 +2,171 @@
 
 @layer base {
   body {
-    background-color: #09090b;
-    color: #f4f4f5;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #f0f2f5;
+    color: #09090b;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.015em;
     overflow-x: hidden;
-    selection-background-color: #3b82f6;
+    selection-background-color: #0d9488;
     selection-color: #ffffff;
+  }
+
+  code, kbd, samp, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.025em;
   }
 }
 
-/* Custom Dev Community Bento Card Styles */
+.font-mono {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* ==========================================================================
+   Cursor Hover & Click Morphing (120 FPS GPU Accelerated Teal)
+   ========================================================================== */
+.cursor-hover {
+  width: 44px !important;
+  height: 44px !important;
+  border-color: #0d9488 !important;
+  border-width: 2px !important;
+  background-color: rgba(13, 148, 136, 0.12) !important;
+  box-shadow: 0 0 16px rgba(13, 148, 136, 0.25) !important;
+}
+
+.cursor-click {
+  width: 26px !important;
+  height: 26px !important;
+  background-color: rgba(13, 148, 136, 0.28) !important;
+}
+
+/* ==========================================================================
+   Crisp Grayish Canvas with Technical Grid
+   ========================================================================== */
+.bg-grid-pattern {
+  background-color: #f0f2f5;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ==========================================================================
+   Bento Card Elevation & TEAL Hover State
+   ========================================================================== */
 .bento-card {
-  background: rgba(18, 18, 23, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 6px 16px -4px rgba(0, 0, 0, 0.04);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bento-card:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(24, 24, 30, 0.85);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(59, 130, 246, 0.12);
+  transform: translateY(-4px);
+  border-color: #0d9488;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1), 0 0 25px -4px rgba(13, 148, 136, 0.18);
 }
 
-/* Subtle dot background */
-.bg-grid-pattern {
-  background-size: 32px 32px;
-  background-image: 
-    radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+/* Prominent interactive item hover states */
+.hover-prominent {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Subtle glowing gradient headers */
+.hover-prominent:hover {
+  transform: translateY(-2px);
+  border-color: #0d9488;
+  background-color: #f0fdfa;
+  box-shadow: 0 10px 20px -5px rgba(13, 148, 136, 0.12);
+}
+
+/* High-Contrast Bold Text Gradients */
 .text-gradient {
-  background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+  background: linear-gradient(180deg, #09090b 0%, #27272a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-gradient-blue {
-  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #1d4ed8 100%);
+.text-gradient-blue,
+.text-gradient-teal {
+  background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   Executive 1-Click Print & PDF Optimization
+   ========================================================================== */
+@media print {
+  .no-print,
+  header,
+  footer,
+  button,
+  .spotlight-follower {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+  }
+
+  .bg-grid-pattern {
+    background: none !important;
+  }
+
+  .bento-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 16px !important;
+    padding: 16px !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  section {
+    margin-bottom: 20px !important;
+    break-inside: avoid !important;
+  }
+
+  h1 {
+    font-size: 22pt !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+  }
+
+  h2 {
+    font-size: 14pt !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 10px !important;
+  }
+
+  h3 {
+    font-size: 12pt !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: #000000 !important;
+  }
+
+  .text-gradient-teal,
+  .text-gradient-blue,
+  .text-gradient {
+    -webkit-text-fill-color: #000000 !important;
+    color: #000000 !important;
+  }
 }

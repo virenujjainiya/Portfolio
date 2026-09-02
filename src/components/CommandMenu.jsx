@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, X, ExternalLink, Mail, Copy, Check, Terminal, Briefcase, Code, Sparkles } from 'lucide-react';
+import { Search, X, ExternalLink, Mail, Copy, Check, Briefcase, Code, Sparkles } from 'lucide-react';
 
 export default function CommandMenu({ isOpen, onClose, onNavigate, projects }) {
   const [query, setQuery] = useState('');
@@ -35,7 +35,7 @@ export default function CommandMenu({ isOpen, onClose, onNavigate, projects }) {
     {
       id: 'focustube',
       title: 'View FocusTube Project',
-      subtitle: 'Focus video learning platform (React + Fastify + Supabase)',
+      subtitle: 'Video learning platform (React + Fastify + Supabase)',
       icon: Code,
       action: () => window.open('https://focus-tube-frontend-lime.vercel.app/login', '_blank')
     },
@@ -69,7 +69,7 @@ export default function CommandMenu({ isOpen, onClose, onNavigate, projects }) {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        onClose(); // toggle
+        onClose();
       }
       if (e.key === 'Escape' && isOpen) {
         onClose();
@@ -82,13 +82,13 @@ export default function CommandMenu({ isOpen, onClose, onNavigate, projects }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 sm:pt-28 px-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 sm:pt-28 px-4 bg-zinc-900/40 backdrop-blur-sm animate-in fade-in duration-150">
       <div 
-        className="w-full max-w-xl bg-[#121216] border border-zinc-700/60 rounded-xl shadow-2xl overflow-hidden shadow-black/80 animate-in zoom-in-95 duration-150"
+        className="w-full max-w-xl bg-white border border-zinc-200 rounded-2xl shadow-2xl overflow-hidden shadow-zinc-900/10 animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Header */}
-        <div className="flex items-center px-4 py-3 border-b border-zinc-800 gap-3">
+        <div className="flex items-center px-4 py-3.5 border-b border-zinc-200 gap-3">
           <Search size={18} className="text-zinc-400 shrink-0" />
           <input
             type="text"
@@ -99,11 +99,11 @@ export default function CommandMenu({ isOpen, onClose, onNavigate, projects }) {
               setSelectedIndex(0);
             }}
             autoFocus
-            className="w-full bg-transparent text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none font-sans"
+            className="w-full bg-transparent text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none font-sans"
           />
           <button 
             onClick={onClose}
-            className="p-1 text-zinc-500 hover:text-zinc-300 rounded transition-colors"
+            className="p-1 text-zinc-400 hover:text-zinc-600 rounded transition-colors"
           >
             <X size={16} />
           </button>
@@ -112,7 +112,7 @@ export default function CommandMenu({ isOpen, onClose, onNavigate, projects }) {
         {/* Action List */}
         <div className="max-h-80 overflow-y-auto p-2 space-y-1">
           {filteredActions.length === 0 ? (
-            <div className="py-8 text-center text-xs text-zinc-500 font-sans">
+            <div className="py-8 text-center text-xs text-zinc-400 font-sans">
               No matching commands found.
             </div>
           ) : (
@@ -125,26 +125,26 @@ export default function CommandMenu({ isOpen, onClose, onNavigate, projects }) {
                     action.action();
                     if (action.id !== 'copy-email') onClose();
                   }}
-                  className={`w-full flex items-center justify-between p-2.5 rounded-lg text-left text-sm transition-colors group ${
-                    selectedIndex === idx ? 'bg-blue-600/15 text-blue-400' : 'text-zinc-300 hover:bg-zinc-800/60 hover:text-white'
+                  className={`w-full flex items-center justify-between p-2.5 rounded-xl text-left text-sm transition-colors group ${
+                    selectedIndex === idx ? 'bg-teal-50 text-teal-900' : 'text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-1.5 rounded-md bg-zinc-800 border border-zinc-700/50 text-zinc-400 group-hover:text-blue-400">
-                      <Icon size={15} />
+                    <div className="p-1.5 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-500 group-hover:text-teal-600 group-hover:bg-teal-50 transition-colors">
+                      <Icon size={16} />
                     </div>
                     <div>
-                      <p className="font-medium text-xs sm:text-sm text-zinc-200">{action.title}</p>
+                      <p className="font-bold text-xs sm:text-sm text-zinc-900">{action.title}</p>
                       <p className="text-[11px] text-zinc-500">{action.subtitle}</p>
                     </div>
                   </div>
 
                   {action.id === 'copy-email' && copied ? (
-                    <span className="text-[11px] text-emerald-400 font-mono flex items-center gap-1">
+                    <span className="text-[11px] text-teal-700 font-mono flex items-center gap-1 font-bold">
                       <Check size={12} /> Copied
                     </span>
                   ) : (
-                    <span className="text-[10px] text-zinc-600 font-mono group-hover:text-zinc-400">
+                    <span className="text-[10px] text-zinc-400 font-mono group-hover:text-zinc-600">
                       Press ↵
                     </span>
                   )}
@@ -155,13 +155,13 @@ export default function CommandMenu({ isOpen, onClose, onNavigate, projects }) {
         </div>
 
         {/* Footer shortcuts */}
-        <div className="px-4 py-2.5 bg-[#0d0d10] border-t border-zinc-800 flex justify-between items-center text-[11px] font-mono text-zinc-500">
+        <div className="px-4 py-2.5 bg-zinc-50 border-t border-zinc-200 flex justify-between items-center text-[11px] font-mono text-zinc-500">
           <div className="flex items-center gap-3">
             <span>↑↓ Navigate</span>
             <span>↵ Select</span>
             <span>esc Close</span>
           </div>
-          <span>Viren Ujjainiya Portfolio</span>
+          <span className="font-semibold text-zinc-700">Viren Ujjainiya</span>
         </div>
       </div>
     </div>

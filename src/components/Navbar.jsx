@@ -1,5 +1,6 @@
 import React from 'react';
-import { Command, Mail, ExternalLink } from 'lucide-react';
+import { Command, Pencil, FileDown } from 'lucide-react';
+import { usePortfolio } from '../context/PortfolioContext';
 
 function GithubIcon({ size = 16 }) {
   return (
@@ -21,70 +22,102 @@ function LinkedinIcon({ size = 16 }) {
 }
 
 export default function Navbar({ onOpenCommand, onNavigate }) {
+  const { isAdmin, isEditing, toggleEditing, data } = usePortfolio();
+
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#09090b]/80 backdrop-blur-md border-b border-zinc-800/80">
+    <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-zinc-200 no-print">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Left: Avatar & Identity */}
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-zinc-800 to-zinc-900 border border-zinc-700/80 flex items-center justify-center font-bold text-sm text-zinc-100 shadow-sm">
+          <div className="w-9 h-9 rounded-lg bg-zinc-950 border border-zinc-800 flex items-center justify-center font-bold text-sm text-teal-400 shadow-sm">
             VU
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-sm text-zinc-100">Viren Ujjainiya</span>
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="font-bold text-sm text-zinc-900">{data.personal.name}</span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-teal-50 text-teal-700 border border-teal-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse" />
                 Available for hire
               </span>
             </div>
-            <p className="text-xs text-zinc-400 hidden sm:block">Full-Stack Engineer</p>
+            <p className="text-xs text-zinc-500 hidden sm:block font-medium">Software Engineer</p>
           </div>
         </div>
 
         {/* Center: Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6 text-xs font-medium text-zinc-400">
-          <button onClick={() => onNavigate('projects')} className="hover:text-zinc-100 transition-colors">
+        <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-zinc-600">
+          <button onClick={() => onNavigate('projects')} className="hover:text-teal-600 transition-colors">
             Projects
           </button>
-          <button onClick={() => onNavigate('experience')} className="hover:text-zinc-100 transition-colors">
+          <button onClick={() => onNavigate('experience')} className="hover:text-teal-600 transition-colors">
             Experience
           </button>
-          <button onClick={() => onNavigate('skills')} className="hover:text-zinc-100 transition-colors">
+          <button onClick={() => onNavigate('skills')} className="hover:text-teal-600 transition-colors">
             Skills
           </button>
-          <button onClick={() => onNavigate('contact')} className="hover:text-zinc-100 transition-colors">
+          <button onClick={() => onNavigate('contact')} className="hover:text-teal-600 transition-colors">
             Contact
           </button>
         </nav>
 
-        {/* Right: Cmd+K Trigger & Socials */}
-        <div className="flex items-center gap-2.5">
+        {/* Right: Actions */}
+        <div className="flex items-center gap-2">
+          {/* Direct Resume Download Link in Teal */}
+          <a
+            href="/resume.pdf"
+            download="Viren_Ujjainiya_Resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-zinc-200 hover:border-teal-500 hover:bg-teal-50/30 text-zinc-700 hover:text-teal-700 transition-all text-xs font-bold shadow-2xs"
+            title="Download Official PDF Resume"
+          >
+            <FileDown size={14} className="text-teal-600" />
+            <span className="hidden sm:inline">Resume</span>
+          </a>
+
+          {/* Only shown if already unlocked via secret shortcut */}
+          {isAdmin && (
+            <button
+              onClick={toggleEditing}
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-mono transition-all border ${
+                isEditing
+                  ? 'bg-teal-600 border-teal-600 text-white shadow-sm'
+                  : 'bg-zinc-100 border-zinc-200 text-zinc-700 hover:text-zinc-900'
+              }`}
+              title="Toggle Edit Mode"
+            >
+              <Pencil size={13} />
+              <span>{isEditing ? 'Editing ON' : 'Editing OFF'}</span>
+            </button>
+          )}
+
+          {/* Search Button (Cmd + K) */}
           <button
             onClick={onOpenCommand}
-            className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-zinc-900 border border-zinc-700/60 text-zinc-400 hover:text-zinc-200 hover:border-zinc-600 transition-all text-xs font-mono shadow-sm"
+            className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-zinc-50 border border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 transition-all text-xs font-mono shadow-sm"
           >
-            <Command size={13} />
+            <Command size={13} className="text-zinc-500" />
             <span className="hidden sm:inline">Search...</span>
-            <kbd className="hidden sm:inline-block bg-zinc-800 border border-zinc-700 text-zinc-400 px-1 rounded text-[10px]">
+            <kbd className="hidden sm:inline-block bg-white border border-zinc-200 text-zinc-500 px-1 rounded text-[10px] shadow-2xs">
               ⌘K
             </kbd>
           </button>
 
           <a
-            href="https://github.com/virenujjainiya"
+            href={`https://${data.personal.github}`}
             target="_blank"
             rel="noreferrer"
-            className="p-2 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 rounded-md transition-colors"
+            className="p-2 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 rounded-md transition-colors"
             title="GitHub Profile"
           >
             <GithubIcon size={17} />
           </a>
 
           <a
-            href="https://linkedin.com/in/ujjainiya-viren"
+            href={`https://${data.personal.linkedin}`}
             target="_blank"
             rel="noreferrer"
-            className="p-2 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 rounded-md transition-colors"
+            className="p-2 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 rounded-md transition-colors"
             title="LinkedIn Profile"
           >
             <LinkedinIcon size={17} />
