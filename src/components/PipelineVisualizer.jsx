@@ -52,62 +52,66 @@ export default function PipelineVisualizer() {
   };
 
   return (
-    <div className="bento-card rounded-xl p-5 sm:p-6 space-y-4">
+    <div className="bento-card rounded-2xl p-5 sm:p-6 space-y-4">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-zinc-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-zinc-200 dark:border-zinc-800">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <div className="p-2 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20">
             <Network size={18} />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-bold text-sm sm:text-base text-zinc-100">
+              <h3 className="font-bold text-sm sm:text-base text-zinc-900 dark:text-zinc-100">
                 10k+ Daily Ingestion Pipeline Architecture
               </h3>
-              <span className="text-[10px] font-mono text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-mono text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/60 border border-teal-200 dark:border-teal-800 px-2 py-0.5 rounded-full font-bold">
                 System Design
               </span>
             </div>
-            <p className="text-xs text-zinc-400">
-              Interactive data pipeline showcasing third-party API ingest & GraphQL architecture.
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              Interactive Shopify/Faire/QuickBooks ingestion pipeline with GraphQL migration.
             </p>
           </div>
         </div>
 
         {/* Protocol Switcher & Simulation Trigger */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center bg-zinc-900 border border-zinc-800 rounded-lg p-0.5 text-xs font-mono">
+          <div className="flex items-center bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-0.5 text-xs font-mono">
             <button
               onClick={() => setProtocol('REST')}
-              className={`px-2 py-1 rounded transition-colors ${
-                protocol === 'REST' ? 'bg-zinc-800 text-zinc-200 font-bold' : 'text-zinc-500 hover:text-zinc-300'
+              className={`px-2.5 py-1 rounded-lg transition-all ${
+                protocol === 'REST' 
+                  ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-bold shadow-xs' 
+                  : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300'
               }`}
             >
-              REST
+              REST (Legacy)
             </button>
             <button
               onClick={() => setProtocol('GRAPHQL')}
-              className={`px-2 py-1 rounded transition-colors ${
-                protocol === 'GRAPHQL' ? 'bg-emerald-600 text-white font-bold' : 'text-zinc-500 hover:text-zinc-300'
+              className={`px-2.5 py-1 rounded-lg transition-all ${
+                protocol === 'GRAPHQL' 
+                  ? 'bg-teal-600 text-white font-bold shadow-xs' 
+                  : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300'
               }`}
             >
-              GraphQL
+              GraphQL (Batch)
             </button>
           </div>
 
           <button
             onClick={triggerSimulation}
             disabled={isSimulating}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-mono font-medium transition-all shadow-sm shadow-blue-500/20 disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-mono font-bold transition-all shadow-md shadow-teal-600/20 disabled:opacity-50 active:scale-95"
           >
-            <Play size={12} />
+            <Play size={13} />
             <span>Simulate Ingest</span>
           </button>
         </div>
       </div>
 
       {/* Pipeline Node Diagram */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 pt-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
         {steps.map((step, idx) => {
           const isActive = activeStep === idx;
           const isPassed = activeStep > idx;
@@ -117,31 +121,31 @@ export default function PipelineVisualizer() {
               key={step.title}
               className={`relative p-4 rounded-xl border transition-all duration-300 flex flex-col justify-between ${
                 isActive
-                  ? 'bg-blue-600/10 border-blue-500 shadow-lg shadow-blue-500/10 scale-[1.02]'
+                  ? 'bg-teal-500/10 border-teal-500 shadow-md shadow-teal-500/10 scale-[1.02]'
                   : isPassed
-                  ? 'bg-zinc-900/60 border-zinc-700/60'
-                  : 'bg-zinc-900/30 border-zinc-800/60 opacity-70'
+                  ? 'bg-zinc-50 dark:bg-zinc-900/60 border-teal-500/30 dark:border-teal-900/40'
+                  : 'bg-white dark:bg-zinc-900/20 border-zinc-200/80 dark:border-zinc-800/60 opacity-80'
               }`}
             >
               <div>
                 <div className="flex items-center justify-between text-xs font-mono mb-2">
-                  <span className={`font-semibold ${isActive ? 'text-blue-400' : 'text-zinc-300'}`}>
+                  <span className={`font-semibold ${isActive ? 'text-teal-600 dark:text-teal-400 font-bold' : 'text-zinc-800 dark:text-zinc-200'}`}>
                     {step.title}
                   </span>
-                  <span className="text-[10px] text-zinc-500 bg-zinc-800/80 px-1.5 py-0.5 rounded">
+                  <span className="text-[10px] text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono">
                     {step.latency}
                   </span>
                 </div>
 
-                <p className="text-xs text-zinc-400 leading-relaxed mb-3">
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-3">
                   {step.desc}
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-zinc-800 text-[10px] font-mono text-zinc-500 flex items-center justify-between">
+              <div className="pt-2 border-t border-zinc-200/80 dark:border-zinc-800 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 flex items-center justify-between">
                 <span>{step.tech}</span>
                 {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping" />
+                  <span className="w-2 h-2 rounded-full bg-teal-500 animate-ping" />
                 )}
               </div>
             </div>
@@ -150,10 +154,10 @@ export default function PipelineVisualizer() {
       </div>
 
       {/* Architecture Metrics Readout */}
-      <div className="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-500 pt-1 border-t border-zinc-800/80">
-        <span>Active Throughput: <strong className="text-zinc-200">10,000+ records / day</strong></span>
-        <span className="text-emerald-400">
-          ✓ GraphQL Migration: 0 breaking changes across existing integrations
+      <div className="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-500 dark:text-zinc-400 pt-2 border-t border-zinc-200 dark:border-zinc-800 gap-2">
+        <span>Active Throughput: <strong className="text-zinc-900 dark:text-zinc-200 font-semibold">10,000+ records / day</strong></span>
+        <span className="text-teal-600 dark:text-teal-400 font-semibold">
+          ✓ GraphQL Migration: -62% network payload & 0 breaking changes
         </span>
       </div>
     </div>

@@ -4,11 +4,22 @@ import { hashPassword, DEFAULT_HASHES } from '../utils/crypto';
 
 const PortfolioContext = createContext(null);
 
-const STORAGE_KEY = 'portfolio_custom_data_v2'; // Bumped key to refresh user browser cache
+const STORAGE_KEY = 'portfolio_custom_data_v7';
 const AUTH_KEY = 'portfolio_admin_auth_v1';
 const PWD_HASH_KEY = 'portfolio_admin_pwd_hash_v1';
+const THEME_KEY = 'portfolio_theme_mode_v1';
 
 export function PortfolioProvider({ children }) {
+  const [theme, setTheme] = useState(() => {
+    try {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved) return saved;
+      return 'dark'; // Default to modern elite dark mode
+    } catch {
+      return 'dark';
+    }
+  });
+
   const [data, setData] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -36,6 +47,24 @@ export function PortfolioProvider({ children }) {
 
   const [isEditing, setIsEditing] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
+
+  // Sync theme to document element & localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem(THEME_KEY, theme);
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    } catch (e) {
+      console.error('Failed to persist theme', e);
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   // Sync to localStorage
   useEffect(() => {
@@ -236,6 +265,8 @@ export function PortfolioProvider({ children }) {
   return (
     <PortfolioContext.Provider
       value={{
+        theme,
+        toggleTheme,
         data,
         isAdmin,
         isEditing,

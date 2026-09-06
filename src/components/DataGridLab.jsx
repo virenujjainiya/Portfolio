@@ -77,35 +77,35 @@ export default function DataGridLab() {
   const offsetY = startIndex * ROW_HEIGHT;
 
   return (
-    <div className="bento-card rounded-xl p-5 sm:p-6 flex flex-col space-y-4">
+    <div className="bento-card rounded-2xl p-5 sm:p-6 flex flex-col space-y-4">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-zinc-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-zinc-200 dark:border-zinc-800">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+          <div className="p-2 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20">
             <Table size={18} />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-bold text-sm sm:text-base text-zinc-100">
+              <h3 className="font-bold text-sm sm:text-base text-zinc-900 dark:text-zinc-100">
                 Interactive 10,000+ Row Virtualized Grid
               </h3>
-              <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-mono text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/60 border border-teal-200 dark:border-teal-800 px-2 py-0.5 rounded-full font-bold">
                 60 FPS Virtualized
               </span>
             </div>
-            <p className="text-xs text-zinc-400">
-              Live proof of client-side performance optimization & data bottleneck resolution.
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              Live demonstration of client-side performance memoization & sub-millisecond filtering.
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 text-xs font-mono text-zinc-400">
+        <div className="flex items-center gap-3 text-xs font-mono text-zinc-500 dark:text-zinc-400">
           <span className="flex items-center gap-1.5">
-            <Cpu size={13} className="text-blue-400" />
+            <Cpu size={14} className="text-teal-600 dark:text-teal-400" />
             <span>Dataset: 10,000 Records</span>
           </span>
-          <span className="text-zinc-600">•</span>
-          <span className="text-emerald-400 font-semibold">Render Latency: &lt; 1ms</span>
+          <span className="text-zinc-300 dark:text-zinc-700">•</span>
+          <span className="text-teal-600 dark:text-teal-400 font-semibold">Render Latency: &lt; 1ms</span>
         </div>
       </div>
 
@@ -113,13 +113,13 @@ export default function DataGridLab() {
       <div className="flex flex-wrap items-center justify-between gap-2.5 pt-1">
         {/* Search */}
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={14} className="absolute left-3 top-2.5 text-zinc-500" />
+          <Search size={14} className="absolute left-3 top-2.5 text-zinc-400 dark:text-zinc-500" />
           <input
             type="text"
             placeholder="Search 10,000 transactions instantly..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-zinc-950 border border-zinc-800 rounded-lg pl-8 pr-3 py-1.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-blue-500 transition-colors font-mono"
+            className="w-full bg-zinc-50 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-zinc-900 dark:text-zinc-200 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-teal-500 transition-colors font-mono"
           />
         </div>
 
@@ -129,10 +129,10 @@ export default function DataGridLab() {
             <button
               key={st}
               onClick={() => setSelectedStatus(st)}
-              className={`px-2.5 py-1 rounded text-[11px] transition-colors ${
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all ${
                 selectedStatus === st
-                  ? 'bg-blue-600 text-white font-medium shadow-sm'
-                  : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800'
+                  ? 'bg-teal-600 text-white shadow-xs'
+                  : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 border border-zinc-200 dark:border-zinc-700'
               }`}
             >
               {st}
@@ -142,19 +142,19 @@ export default function DataGridLab() {
       </div>
 
       {/* Virtualized Table Container */}
-      <div className="rounded-lg border border-zinc-800 bg-[#070709] overflow-hidden">
+      <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#090b10] overflow-hidden shadow-xs">
         {/* Table Header */}
-        <div className="grid grid-cols-12 px-4 py-2.5 bg-zinc-900/80 border-b border-zinc-800 text-[11px] font-mono text-zinc-400 select-none">
+        <div className="grid grid-cols-12 px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/80 border-b border-zinc-200 dark:border-zinc-800 text-[11px] font-mono text-zinc-600 dark:text-zinc-400 select-none">
           <div
             onClick={() => handleSort('id')}
-            className="col-span-3 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+            className="col-span-3 flex items-center gap-1 cursor-pointer hover:text-teal-600 dark:hover:text-white transition-colors"
           >
             <span>TXN ID</span>
             <ArrowUpDown size={11} />
           </div>
           <div
             onClick={() => handleSort('source')}
-            className="col-span-3 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+            className="col-span-3 flex items-center gap-1 cursor-pointer hover:text-teal-600 dark:hover:text-white transition-colors"
           >
             <span>INTEGRATION</span>
             <ArrowUpDown size={11} />
@@ -162,7 +162,7 @@ export default function DataGridLab() {
           <div className="col-span-2">STATUS</div>
           <div
             onClick={() => handleSort('amount')}
-            className="col-span-2 text-right flex items-center justify-end gap-1 cursor-pointer hover:text-white transition-colors"
+            className="col-span-2 text-right flex items-center justify-end gap-1 cursor-pointer hover:text-teal-600 dark:hover:text-white transition-colors"
           >
             <span>AMOUNT</span>
             <ArrowUpDown size={11} />
@@ -183,26 +183,26 @@ export default function DataGridLab() {
               {visibleRows.map((row) => (
                 <div
                   key={row.id}
-                  className="grid grid-cols-12 px-4 items-center border-b border-zinc-800/40 hover:bg-zinc-800/40 transition-colors text-zinc-300"
+                  className="grid grid-cols-12 px-4 items-center border-b border-zinc-100 dark:border-zinc-800/60 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors text-zinc-700 dark:text-zinc-300"
                   style={{ height: ROW_HEIGHT }}
                 >
-                  <div className="col-span-3 font-semibold text-blue-400">{row.id}</div>
-                  <div className="col-span-3 text-zinc-300">{row.source}</div>
+                  <div className="col-span-3 font-semibold text-teal-600 dark:text-teal-400">{row.id}</div>
+                  <div className="col-span-3 text-zinc-800 dark:text-zinc-300 font-medium">{row.source}</div>
                   <div className="col-span-2">
                     <span
-                      className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                      className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                         row.status === 'PROCESSED'
-                          ? 'bg-emerald-500/10 text-emerald-400'
+                          ? 'bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300'
                           : row.status === 'SETTLED'
-                          ? 'bg-blue-500/10 text-blue-400'
-                          : 'bg-amber-500/10 text-amber-400'
+                          ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300'
+                          : 'bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300'
                       }`}
                     >
                       {row.status}
                     </span>
                   </div>
-                  <div className="col-span-2 text-right font-medium text-zinc-100">{row.amount}</div>
-                  <div className="col-span-2 text-right text-zinc-500 text-[11px]">{row.latency}</div>
+                  <div className="col-span-2 text-right font-medium text-zinc-900 dark:text-zinc-100">{row.amount}</div>
+                  <div className="col-span-2 text-right text-zinc-400 dark:text-zinc-500 text-[11px]">{row.latency}</div>
                 </div>
               ))}
             </div>
@@ -211,10 +211,10 @@ export default function DataGridLab() {
       </div>
 
       {/* Footer Benchmark Metrics */}
-      <div className="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-500 pt-1">
-        <span>Matching records: <strong className="text-zinc-200">{sortedData.length.toLocaleString()}</strong> of 10,000</span>
-        <span className="flex items-center gap-1 text-emerald-400">
-          <CheckCircle2 size={13} /> Memoized windowing active — Zero DOM lag
+      <div className="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-500 dark:text-zinc-400 pt-1 gap-2">
+        <span>Matching records: <strong className="text-zinc-900 dark:text-zinc-200 font-semibold">{sortedData.length.toLocaleString()}</strong> of 10,000</span>
+        <span className="flex items-center gap-1.5 text-teal-600 dark:text-teal-400 font-medium">
+          <CheckCircle2 size={14} /> Memoized windowing active — Zero DOM lag
         </span>
       </div>
     </div>

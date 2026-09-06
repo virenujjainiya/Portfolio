@@ -28,10 +28,14 @@ export default function SkillsBento() {
 
   return (
     <div className="bento-card rounded-2xl p-6 sm:p-8 space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-200 dark:border-zinc-800">
         <div>
-          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-zinc-950">Skills & Technical Competencies</h2>
-          <p className="text-xs sm:text-sm text-zinc-500 font-medium mt-0.5">Core technologies across full-stack production systems.</p>
+          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-zinc-950 dark:text-white">
+            Skills & Technical Competencies
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-medium mt-0.5">
+            Core technologies across full-stack production systems.
+          </p>
         </div>
 
         {/* Filter buttons */}
@@ -40,8 +44,8 @@ export default function SkillsBento() {
             onClick={() => setActiveCat('all')}
             className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all ${
               activeCat === 'all'
-                ? 'bg-zinc-950 text-white shadow-sm'
-                : 'bg-zinc-100 text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/80 border border-zinc-200'
+                ? 'bg-zinc-950 dark:bg-teal-600 text-white shadow-sm'
+                : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200/80 border border-zinc-200 dark:border-zinc-700'
             }`}
           >
             All
@@ -52,8 +56,8 @@ export default function SkillsBento() {
               onClick={() => setActiveCat(cat)}
               className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all capitalize ${
                 activeCat === cat
-                  ? 'bg-zinc-950 text-white shadow-sm'
-                  : 'bg-zinc-100 text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/80 border border-zinc-200'
+                  ? 'bg-zinc-950 dark:bg-teal-600 text-white shadow-sm'
+                  : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200/80 border border-zinc-200 dark:border-zinc-700'
               }`}
             >
               {CATEGORY_META[cat]?.label || cat}
@@ -70,9 +74,12 @@ export default function SkillsBento() {
           const Icon = meta.icon;
 
           return (
-            <div key={category} className="p-4 rounded-xl bg-zinc-50/80 border border-zinc-200 hover:border-zinc-300 hover:shadow-sm transition-all duration-200 space-y-3">
-              <div className="flex items-center gap-2 text-xs font-bold text-zinc-900">
-                <Icon size={16} className="text-teal-600" />
+            <div 
+              key={category} 
+              className="p-4 rounded-xl bg-zinc-50/80 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm transition-all duration-200 space-y-3"
+            >
+              <div className="flex items-center gap-2 text-xs font-bold text-zinc-900 dark:text-zinc-100">
+                <Icon size={16} className="text-teal-600 dark:text-teal-400" />
                 <span>{meta.label}</span>
               </div>
 
@@ -80,7 +87,7 @@ export default function SkillsBento() {
                 {items.map((skill, idx) => (
                   <span
                     key={skill + idx}
-                    className="group/skill relative px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-white text-zinc-800 border border-zinc-200/90 hover:border-teal-500 hover:text-teal-700 hover:bg-teal-50/40 hover:-translate-y-0.5 shadow-2xs transition-all flex items-center gap-1.5 cursor-default"
+                    className="group/skill relative px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-200/90 dark:border-zinc-700 hover:border-teal-500 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50/40 dark:hover:bg-teal-950/40 hover:-translate-y-0.5 shadow-2xs transition-all flex items-center gap-1.5 cursor-default"
                   >
                     <span>{skill}</span>
                     {isEditing && (
@@ -106,7 +113,7 @@ export default function SkillsBento() {
                     }
                     onKeyDown={(e) => e.key === 'Enter' && handleAddSkill(category)}
                     placeholder="Add new skill..."
-                    className="flex-1 bg-white border border-zinc-300 rounded px-2 py-1 text-xs text-zinc-900 focus:outline-none focus:border-teal-600"
+                    className="flex-1 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded px-2 py-1 text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-teal-600"
                   />
                   <button
                     onClick={() => handleAddSkill(category)}
